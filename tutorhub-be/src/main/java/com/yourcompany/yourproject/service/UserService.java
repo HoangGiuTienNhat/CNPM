@@ -121,10 +121,12 @@ public class UserService {
         dto.setEmail(user.getEmail());
         dto.setUserName(user.getUserName());
         dto.setRole(user.getRole());
-        // Map thêm tên khoa nếu cần
+        dto.setPersonalEmail(user.getPersonalEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
+        dto.setAddress(user.getAddress());
+        // Map Faculty information if present
         if (user.getFaculty() != null) {
-             // Giả sử UserDto có trường facultyName, nếu không có thì bỏ qua dòng này
-             // dto.setFacultyName(user.getFaculty().getName());
+            dto.setFaculty(new FacultyResponseDto(user.getFaculty().getId(), user.getFaculty().getName()));
         }
         return dto;
     }

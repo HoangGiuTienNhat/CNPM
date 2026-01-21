@@ -7,6 +7,7 @@ interface AuthContextType {
   login: (credential: Credentials) => Promise<User>
   logout: () => void
   isAuthenticated: boolean
+  updateUser: (userData: Partial<User>) => void
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -65,7 +66,15 @@ export function AuthProvider({ children }: AuthProdivderProps) {
     setUser(null)
   }
 
-  const value = { user, login, logout, isAuthenticated: !loading && !!user }
+  const updateUser = (userData: Partial<User>) => {
+    if (user) {
+      const updatedUser = { ...user, ...userData }
+      setUser(updatedUser)
+      localStorage.setItem('user', JSON.stringify(updatedUser))
+    }
+  }
+
+  const value = { user, login, logout, isAuthenticated: !loading && !!user, updateUser }
 
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>
 }

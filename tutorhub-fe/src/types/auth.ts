@@ -15,4 +15,9 @@ export interface User {
 
   // Optional: faculty ID for users belonging to a faculty (e.g., faculty role)
   facultyId?: number
+
+  // Profile details
+  personalEmail?: string | null
+  phoneNumber?: string | null
+  address?: string | null
 }

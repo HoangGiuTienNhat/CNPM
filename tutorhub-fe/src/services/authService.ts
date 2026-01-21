@@ -138,7 +138,11 @@ class AuthService {
         email: userData.email,
         role: userData.role,
         // Support facultyId mapping if backend provides it under different shapes
-        facultyId: userData.faculty?.id ?? userData.facultyId ?? undefined
+        facultyId: userData.faculty?.id ?? userData.facultyId ?? undefined,
+        // Include profile details
+        personalEmail: userData.personalEmail ?? null,
+        phoneNumber: userData.phoneNumber ?? null,
+        address: userData.address ?? null
       }
     } catch (error) {
       if (error instanceof ApiError) {
