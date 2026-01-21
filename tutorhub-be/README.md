@@ -41,11 +41,106 @@ To run the project locally, follow these steps:
 
 The application will be accessible at `http://localhost:8080`.
 
-## 3. Testing the Login API
+## 3. Swagger/OpenAPI Documentation ⭐ NEW
 
-To test the login API, you can use a tool like Postman or curl.
+TutorHub now includes comprehensive API documentation through Swagger UI. All endpoints are automatically documented with interactive testing capabilities.
 
-- **URL:** `http://localhost:8080/auth/signin`
+### 📍 Quick Access
+
+```
+Swagger UI:        http://localhost:8080/api/swagger-ui.html
+OpenAPI JSON Spec: http://localhost:8080/api/v3/api-docs
+```
+
+### 🚀 Quick Start (5 minutes)
+
+1. **Start the backend:**
+   ```bash
+   cd tutorhub-be
+   mvn clean package -DskipTests
+   java -jar target/tutorhub-be-0.0.1-SNAPSHOT.war
+   ```
+
+2. **Open Swagger UI:**
+   - Navigate to: `http://localhost:8080/api/swagger-ui.html`
+
+3. **Test endpoints:**
+   - Find endpoint in Swagger UI
+   - Click "Try it out"
+   - Enter parameters/body
+   - Click "Execute"
+
+### 🔐 Authentication Flow
+
+1. Go to **Authentication** section
+2. Call `POST /auth/signin` with test credentials:
+   ```json
+   {
+     "email": "test@example.com",
+     "password": "password"
+   }
+   ```
+3. Copy the JWT token from response
+4. Click **Authorize** button (top right)
+5. Paste token as: `Bearer <your-token>`
+6. Now all authenticated endpoints are accessible
+
+### 📚 Documentation Files
+
+- **SWAGGER_QUICK_START.md** - 5-minute guide to get started
+- **SWAGGER_GUIDE.md** - Comprehensive user guide
+- **SWAGGER_CONFIGURATION.md** - Technical details & setup
+- **SWAGGER_ANNOTATIONS_CHEATSHEET.md** - Code templates for new endpoints
+- **SWAGGER_INTEGRATION_SUMMARY.md** - Complete implementation overview
+
+### 📝 Featured Endpoints
+
+**Authentication (Public)**
+- `POST /auth/signin` - User login
+- `POST /auth/register` - User registration
+- `GET /auth/me` - Get current user (requires auth)
+- `GET /auth/test` - Health check
+
+**Faculty (Protected)**
+- `GET /faculties` - List all faculties
+- `POST /faculties` - Create faculty
+- `GET /faculties/{id}` - Get faculty details
+- `PUT /faculties/{id}` - Update faculty
+- `DELETE /faculties/{id}` - Delete faculty
+
+### 🎯 For Developers
+
+When adding new endpoints, see **SWAGGER_ANNOTATIONS_CHEATSHEET.md** for copy-paste templates.
+
+Example:
+```java
+@GetMapping
+@Operation(summary = "Get items")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Success"),
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+})
+public ResponseEntity<List<ItemDto>> getAll() {
+    // Implementation
+}
+```
+
+---
+
+## 4. Testing the Login API
+
+To test the login API, you can use Swagger UI, Postman, or curl.
+
+**Using Swagger UI (Recommended):**
+1. Go to `http://localhost:8080/api/swagger-ui.html`
+2. Expand "Authentication" section
+3. Click on `POST /auth/signin`
+4. Click "Try it out"
+5. Enter test credentials
+6. Click "Execute"
+
+**Using Postman:**
+- **URL:** `http://localhost:8080/api/auth/signin`
 - **Method:** `POST`
 - **Body:**
   ```json
@@ -55,7 +150,7 @@ To test the login API, you can use a tool like Postman or curl.
   }
   ```
 
-## 4. Feature Development Workflow
+## 5. Feature Development Workflow
 
 To ensure smooth collaboration, please follow this workflow when developing new features:
 

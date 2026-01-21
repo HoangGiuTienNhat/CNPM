@@ -48,6 +48,15 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll() 
                 // Cho phép tài nguyên công khai khác
                 .requestMatchers("/public/**", "/statistics/**").permitAll() 
+                
+                // cho phep truy cập Swagger UI và API docs mà không cần xác thực
+                .requestMatchers(
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/swagger-resources/**",
+                    "/webjars/**"
+                ).permitAll()
                 // Tất cả các request khác phải đăng nhập (có token)
                 .anyRequest().authenticated()
             );
