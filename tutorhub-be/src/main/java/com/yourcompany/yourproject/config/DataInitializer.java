@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional; // Thêm dòng này
 
 @Component
 @RequiredArgsConstructor
@@ -20,16 +21,17 @@ public class DataInitializer implements CommandLineRunner {
     private final FacultyRepository facultyRepository;
 
     @Override
+    @Transactional // Thêm annotation này để quản lý giao dịch tốt hơn
     public void run(String... args) throws Exception {
-        // Create default faculty
+        // 1. Tạo Faculty mặc định
         Faculty defaultFaculty = facultyRepository.findByName("Default Faculty").orElseGet(() -> {
             Faculty faculty = Faculty.builder().name("Default Faculty").build();
             return facultyRepository.save(faculty);
         });
-        // Check if test user already exists
+
+        // 2. Tạo test user (Xóa .uid)
         if (!userRepository.existsByEmail("test@example.com")) {
             User testUser = User.builder()
-                    .uid(999999L)
                     .email("test@example.com")
                     .userName("testuser")
                     .password(passwordEncoder.encode("password123"))
@@ -37,15 +39,12 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             userRepository.save(testUser);
-            log.info("Test user created: test@example.com with password: password123");
-        } else {
-            log.info("Test user already exists: test@example.com");
+            log.info("Test user created: test@example.com");
         }
 
-        // Create admin user
+        // 3. Tạo admin user (Xóa .uid)
         if (!userRepository.existsByEmail("admin@tutorhub.com")) {
             User adminUser = User.builder()
-                    .uid(1L)
                     .email("admin@tutorhub.com")
                     .userName("Administrator")
                     .password(passwordEncoder.encode("admin123"))
@@ -53,13 +52,12 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             userRepository.save(adminUser);
-            log.info("Admin user created: admin@tutorhub.com with password: admin123");
+            log.info("Admin user created: admin@tutorhub.com");
         }
 
-        // Create student user
+        // 4. Tạo student user (Xóa .uid)
         if (!userRepository.existsByEmail("student@tutorhub.com")) {
             User studentUser = User.builder()
-                    .uid(2110000L)
                     .email("student@tutorhub.com")
                     .userName("Nguyễn Văn A")
                     .password(passwordEncoder.encode("student123"))
@@ -68,13 +66,12 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             userRepository.save(studentUser);
-            log.info("Student user created: student@tutorhub.com with password: student123");
+            log.info("Student user created: student@tutorhub.com");
         }
 
-        // Create tutor user
+        // 5. Tạo tutor user (Xóa .uid)
         if (!userRepository.existsByEmail("tutor@tutorhub.com")) {
             User tutorUser = User.builder()
-                    .uid(2110001L)
                     .email("tutor@tutorhub.com")
                     .userName("Trần Thị B")
                     .password(passwordEncoder.encode("tutor123"))
@@ -83,22 +80,7 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             userRepository.save(tutorUser);
-            log.info("Tutor user created: tutor@tutorhub.com with password: tutor123");
-        }
-
-        // Create HCMUT student user
-        if (!userRepository.existsByEmail("student@hcmut.edu.vn")) {
-            User hcmutStudent = User.builder()
-                    .uid(2212345L)
-                    .email("student@hcmut.edu.vn")
-                    .userName("HCMUT Student")
-                    .password(passwordEncoder.encode("hcmut123"))
-                    .role("Student")
-                    .faculty(defaultFaculty)
-                    .build();
-
-            userRepository.save(hcmutStudent);
-            log.info("HCMUT student user created: student@hcmut.edu.vn with password: hcmut123");
+            log.info("Tutor user created: tutor@tutorhub.com");
         }
     }
 }
