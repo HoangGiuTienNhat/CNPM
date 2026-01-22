@@ -74,6 +74,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of(
+        "http://localhost:3000", 
+        "https://cnpm-psi.vercel.app/" // THÊM LINK VERCEL CỦA BẠN VÀO ĐÂY
+        ));
         configuration.setAllowedOriginPatterns(List.of("*")); // Cho phép Frontend gọi API
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin"));
