@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
-import { authService, type RegisterData } from '../services/authservice'
+import { authService, type RegisterData } from '../services/authService'
 import logo from '../asset/images/TutorHub_logo.png' // Đảm bảo đường dẫn đúng
 
 export default function RegisterPage() {
