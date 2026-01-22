@@ -2,8 +2,8 @@ import type { Consultation, ConsultationFormData } from 'src/types'
 import { authService } from './authService'
 import { formatConsultationDataForAPI } from 'src/utils/dateTimeFormatter'
 
-const API_BASE_URL = 'http://localhost:8080/api/consultations'
-
+// const API_BASE_URL = 'http://localhost:8080/api/consultations'
+const API_BASE_URL = 'http://3.106.189.13:8080/consultations'
 const getAuthHeaders = () => {
   const token = authService.getToken()
   const headers: HeadersInit = {
