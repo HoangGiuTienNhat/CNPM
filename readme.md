@@ -3,6 +3,16 @@ hình như là
 npm install
 npm run dev
 
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\NHAT> cd "E:\bku\251\CNPM\CNPM\CNPM"
+PS E:\bku\251\CNPM\CNPM\CNPM> ssh -i "keybecnpm.pem" ubuntu@3.106.189.13
+
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
